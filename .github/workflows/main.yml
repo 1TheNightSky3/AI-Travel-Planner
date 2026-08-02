@@ -1,0 +1,26 @@
+name: Docker CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t ju-cse .
+
+      - name: Run Docker container
+        run: |
+          docker run -d -p 8080:80 --name ju-cse-container ju-cse
+          sleep 5
+
+      - name: Test the web page
+        run: |
+          curl http://localhost:8080 | grep "Welcome to JU CSE!"
