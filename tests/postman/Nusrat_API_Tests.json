@@ -1,0 +1,1016 @@
+{
+	"info": {
+		"_postman_id": "d724ac05-7a52-4bd9-8433-68715557d26f",
+		"name": "API TESTING ASSIGNMENT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "57147889",
+		"_collection_link": "https://www.postman.com/avionics-physicist-34999884-5982211/workspace/learning-postman/collection/57147889-d724ac05-7a52-4bd9-8433-68715557d26f?action=share&source=collection_link&creator=57147889"
+	},
+	"item": [
+		{
+			"name": "ALL POSTS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response time less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"packages": {},
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response Time less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\"))",
+							"        .to.include(\"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Response Size greater than 0\", function () {",
+							"    pm.expect(pm.response.responseSize).to.be.above(0);",
+							"});",
+							"",
+							"pm.test(\"Post ID is 1\", function () {",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"User ID is 1\", function () {",
+							"    pm.expect(jsonData.userId).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Title exists\", function () {",
+							"    pm.expect(jsonData.title).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Body exists\", function () {",
+							"    pm.expect(jsonData.body).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Title is String\", function () {",
+							"    pm.expect(jsonData.title).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Body is String\", function () {",
+							"    pm.expect(jsonData.body).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Response has exactly 4 properties\", function () {",
+							"    pm.expect(Object.keys(jsonData).length).to.eql(4);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response time less than 1000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+							"});",
+							"",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Post ID is 2\", function () {",
+							"    pm.expect(jsonData.id).to.eql(2);",
+							"});",
+							"",
+							"pm.test(\"Title exists\", function () {",
+							"    pm.expect(jsonData.title).to.exist;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/2",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response time less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Post ID is 3\", function () {",
+							"    pm.expect(jsonData.id).to.eql(3);",
+							"});",
+							"",
+							"pm.test(\"Title exists\", function () {",
+							"    pm.expect(jsonData.title).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Body is not empty\", function () {",
+							"    pm.expect(jsonData.body).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"userId exists\", function () {",
+							"    pm.expect(jsonData.userId).to.exist;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/3",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response time less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Post ID is 4\", function () {",
+							"    pm.expect(jsonData.id).to.eql(4);",
+							"});",
+							"",
+							"pm.test(\"Title exists\", function () {",
+							"    pm.expect(jsonData.title).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Body is not empty\", function () {",
+							"    pm.expect(jsonData.body).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"userId exists\", function () {",
+							"    pm.expect(jsonData.userId).to.exist;",
+							"});",
+							"",
+							"// NEW TEST",
+							"pm.test(\"Title is a string\", function () {",
+							"    pm.expect(jsonData.title).to.be.a(\"string\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/4",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST 5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"pm.test(\"Response time less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Post ID is 5\", function () {",
+							"    pm.expect(jsonData.id).to.eql(5);",
+							"});",
+							"",
+							"pm.test(\"Title exists\", function () {",
+							"    pm.expect(jsonData.title).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Body is not empty\", function () {",
+							"    pm.expect(jsonData.body).to.not.be.empty;",
+							"});",
+							"",
+							"pm.test(\"userId exists\", function () {",
+							"    pm.expect(jsonData.userId).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Title is a string\", function () {",
+							"    pm.expect(jsonData.title).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"User ID is a number\", function () {",
+							"    pm.expect(jsonData.userId).to.be.a(\"number\");",
+							"});",
+							"",
+							"// NEW TEST",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/5",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALL USERS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response is an Array\", function () {",
+							"    pm.expect(jsonData).to.be.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"There are 10 users\", function () {",
+							"    pm.expect(jsonData.length).to.eql(10);",
+							"});",
+							"",
+							"pm.test(\"First user ID is 1\", function () {",
+							"    pm.expect(jsonData[0].id).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"First user has name\", function () {",
+							"    pm.expect(jsonData[0].name).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Email exists\", function () {",
+							"    pm.expect(jsonData[0].email).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Address exists\", function () {",
+							"    pm.expect(jsonData[0].address).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Company exists\", function () {",
+							"    pm.expect(jsonData[0].company).to.exist;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/users",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALL COMMENTS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response is an Array\", function () {",
+							"    pm.expect(jsonData).to.be.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"Comments are available\", function () {",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});",
+							"",
+							"pm.test(\"First comment has email\", function () {",
+							"    pm.expect(jsonData[0].email).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Email contains @\", function () {",
+							"    pm.expect(jsonData[0].email).to.include(\"@\");",
+							"});",
+							"",
+							"pm.test(\"Email is a string\", function () {",
+							"    pm.expect(jsonData[0].email).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"Body is not empty\", function () {",
+							"    pm.expect(jsonData[0].body).to.not.be.empty;",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/comments",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ALL TODOCS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response is an Array\", function () {",
+							"    pm.expect(jsonData).to.be.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"Todos are available\", function () {",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});",
+							"",
+							"pm.test(\"Completed field exists\", function () {",
+							"    pm.expect(jsonData[0].completed).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Completed is Boolean\", function () {",
+							"    pm.expect(jsonData[0].completed).to.be.a(\"boolean\");",
+							"});",
+							"",
+							"pm.test(\"Title exists\", function () {",
+							"    pm.expect(jsonData[0].title).to.exist;",
+							"});",
+							"",
+							"pm.test(\"User ID is Number\", function () {",
+							"    pm.expect(jsonData[0].userId).to.be.a(\"number\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "key",
+							"value": "x-api-key",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "apikey",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/todos",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"todos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PHOTOS",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Response is an Array\", function () {",
+							"    pm.expect(jsonData).to.be.an(\"array\");",
+							"});",
+							"",
+							"pm.test(\"Photos are available\", function () {",
+							"    pm.expect(jsonData.length).to.be.above(0);",
+							"});",
+							"",
+							"pm.test(\"URL exists\", function () {",
+							"    pm.expect(jsonData[0].url).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Thumbnail URL exists\", function () {",
+							"    pm.expect(jsonData[0].thumbnailUrl).to.exist;",
+							"});",
+							"",
+							"pm.test(\"URL is a string\", function () {",
+							"    pm.expect(jsonData[0].url).to.be.a(\"string\");",
+							"});",
+							"",
+							"pm.test(\"URL starts with https://\", function () {",
+							"    pm.expect(jsonData[0].url).to.include(\"https://\");",
+							"});",
+							"",
+							"pm.test(\"Thumbnail URL starts with https://\", function () {",
+							"    pm.expect(jsonData[0].thumbnailUrl).to.include(\"https://\");",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/photos",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"photos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREATE POST (POST)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 201\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"ID is generated\", function () {",
+							"    pm.expect(jsonData.id).to.exist;",
+							"});",
+							"",
+							"pm.test(\"Title is correct\", function () {",
+							"    pm.expect(jsonData.title).to.eql(\"Learning Postman\");",
+							"});",
+							"",
+							"pm.test(\"Body is correct\", function () {",
+							"    pm.expect(jsonData.body).to.eql(\"This is my first POST request\");",
+							"});",
+							"",
+							"pm.test(\"User ID is correct\", function () {",
+							"    pm.expect(jsonData.userId).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Learning Postman\",\n    \"body\": \"This is my first POST request\",\n    \"userId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE POST (PUT)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"ID is 1\", function () {",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"});",
+							"",
+							"pm.test(\"Title is updated\", function () {",
+							"    pm.expect(jsonData.title).to.eql(\"Updated Post\");",
+							"});",
+							"",
+							"pm.test(\"Body is updated\", function () {",
+							"    pm.expect(jsonData.body).to.eql(\"This post has been updated\");",
+							"});",
+							"",
+							"pm.test(\"User ID is 1\", function () {",
+							"    pm.expect(jsonData.userId).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"title\": \"Updated Post\",\n    \"body\": \"This post has been updated\",\n    \"userId\": 1\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH POST (PATCH)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response is JSON\", function () {",
+							"    pm.response.to.be.json;",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"",
+							"pm.test(\"Title is updated\", function () {",
+							"    pm.expect(jsonData.title).to.eql(\"Updated by PATCH\");",
+							"});",
+							"",
+							"pm.test(\"ID is 1\", function () {",
+							"    pm.expect(jsonData.id).to.eql(1);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Updated by PATCH\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE POST (DELETE)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response Body is Empty Object\", function () {",
+							"    pm.expect(pm.response.json()).to.eql({});",
+							"});",
+							"",
+							"pm.test(\"Response Time less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "HEAD POSTS (HEAD)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response Body is Empty\", function () {",
+							"    pm.expect(pm.response.text()).to.eql(\"\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type Header exists\", function () {",
+							"    pm.expect(pm.response.headers.has(\"Content-Type\")).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Content-Type is application/json\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+							"});",
+							"",
+							"pm.test(\"Response Time less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "HEAD",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "OPTION POSTS (OPTION)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status Code is 200 or 204\", function () {",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+							"});",
+							"",
+							"pm.test(\"Response Time less than 2000ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(2000);",
+							"});",
+							"",
+							"pm.test(\"Headers are available\", function () {",
+							"    pm.expect(pm.response.headers.count()).to.be.above(0);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "OPTIONS",
+				"header": [],
+				"url": {
+					"raw": "https://jsonplaceholder.typicode.com/posts",
+					"protocol": "https",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
