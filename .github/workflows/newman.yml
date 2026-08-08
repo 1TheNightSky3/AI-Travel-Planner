@@ -25,8 +25,8 @@ jobs:
       - name: Run Moutithi API Tests
         run: newman run tests/postman/Moutithi.FreeApi.json
 
-      - name: Run Mim API Tests
-        run: newman run tests/postman/Mim_API_Tests.json
+      - name: Run Nusrat API Tests
+        run: newman run tests/postman/Nusrat_API_Tests.json
 
       - name: Run Mahmuda API Tests
         run: newman run tests/postman/Mahmuda_API_Tests.json
