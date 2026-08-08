@@ -1,0 +1,3091 @@
+{
+  "info": {
+    "_postman_id": "05ad0a53-b85f-48f2-bfe3-fef01f96592c",
+    "name": "Sahara - API Test Collection",
+    "description": "StartFragment\n\n`API testing for AI Travel Planner project`\n\nEndFragment",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57202771",
+    "_collection_link": "https://go.postman.co/collection/57202771-05ad0a53-b85f-48f2-bfe3-fef01f96592c?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Trip Management",
+      "item": [
+        {
+          "name": "Get All Trips",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Posts array exists\", function () {\r",
+                  "    pm.expect(responseData.posts).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Posts are not empty\", function () {\r",
+                  "    pm.expect(responseData.posts.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is below 3000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/posts",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Trip By ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Post ID is 7\", function () {\r",
+                  "    pm.expect(responseData.id).to.eql(7);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Title exists\", function () {\r",
+                  "    pm.expect(responseData.title).to.be.a(\"string\").and.not.empty;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Body exists\", function () {\r",
+                  "    pm.expect(responseData.body).to.be.a(\"string\").and.not.empty;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/posts/7",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Japan Trip",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Trip title is correct\", function () {\r",
+                  "    pm.expect(responseData.title).to.eql(\"Japan Tour\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Trip body is correct\", function () {\r",
+                  "    pm.expect(responseData.body).to.eql(\"7 Days Tokyo Trip\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID is correct\", function () {\r",
+                  "    pm.expect(responseData.userId).to.eql(5);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Trip ID is generated\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Japan Tour\",\r\n    \"body\": \"7 Days Tokyo Trip\",\r\n    \"userId\": 5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/posts/add",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Cox's Bazar Trip",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Post title is correct\", function () {\r",
+                  "    pm.expect(responseData.title).to.eql(\"Cox's Bazar\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID is correct\", function () {\r",
+                  "    pm.expect(responseData.userId).to.eql(3);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Post body is correct\", function () {\r",
+                  "    pm.expect(responseData.body).to.eql(\"Travel plan for Cox's Bazar.\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Post ID is generated\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Cox's Bazar\",\r\n    \"userId\": 3,\r\n    \"body\": \"Travel plan for Cox's Bazar.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/posts/add",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Trip",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Title Updated\", function () {\r",
+                  "    pm.expect(responseData.title).to.eql(\"Updated Japan Tour\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Body Updated\", function () {\r",
+                  "    pm.expect(responseData.body).to.eql(\"10 Days Japan\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID is correct\", function () {\r",
+                  "    pm.expect(responseData.userId).to.eql(5);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Updated Japan Tour\",\r\n    \"body\": \"10 Days Japan\",\r\n    \"userId\": 5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/posts/6",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch Trip Title",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Title updated successfully\", function () {\r",
+                  "    pm.expect(responseData.title).to.eql(\"Patched Japan Tour\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Post ID is 9\", function () {\r",
+                  "    pm.expect(responseData.id).to.eql(9);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is less than 1500ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1500);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Patched Japan Tour\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/posts/9",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Trip",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Trip deleted successfully\", function () {\r",
+                  "    pm.expect(responseData.isDeleted).to.eql(true);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Deleted Trip ID is 1\", function () {\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is less than 3000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/posts/1",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search by word",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Search result is an array\", function () {\r",
+                  "    pm.expect(responseData.posts).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Search result is not empty\", function () {\r",
+                  "    pm.expect(responseData.posts.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is less than 3000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/posts/search?q=hate",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "search"
+              ],
+              "query": [
+                {
+                  "key": "q",
+                  "value": "hate"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Trips with Pagination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Posts array exists\", function () {\r",
+                  "    pm.expect(responseData.posts).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Returned exactly 10 posts\", function () {\r",
+                  "    pm.expect(responseData.posts.length).to.eql(10);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Limit value is correct\", function () {\r",
+                  "    pm.expect(responseData.limit).to.eql(10);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Skip value is correct\", function () {\r",
+                  "    pm.expect(responseData.skip).to.eql(10);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/posts?limit=10&skip=10",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "key": "skip",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Latest Trips",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Posts array exists\", function () {\r",
+                  "    pm.expect(responseData.posts).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Returned exactly 5 posts\", function () {\r",
+                  "    pm.expect(responseData.posts.length).to.eql(5);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Total posts field exists\", function () {\r",
+                  "    pm.expect(responseData.total).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is less than 3000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(3000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/posts?limit=5",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts"
+              ],
+              "query": [
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "travel tips",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"Travel tip title exists\", function () {\r",
+                  "    pm.expect(responseData.title).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Travel tip content exists\", function () {\r",
+                  "    pm.expect(responseData.body).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/posts/33",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "33"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Management",
+      "item": [
+        {
+          "name": "Get user by id",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"ID exists\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Name exists\", function () {\r",
+                  "    pm.expect(responseData.name).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Email exists\", function () {\r",
+                  "    pm.expect(responseData.email).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Country exists\", function () {\r",
+                  "    pm.expect(responseData.country).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/48",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "48"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"First Name Correct\", function () {\r",
+                  "    pm.expect(responseData.firstName).to.eql(\"Nusu\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Email Correct\", function () {\r",
+                  "    pm.expect(responseData.email).to.eql(\"nusu@gmail.com\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Role Correct\", function () {\r",
+                  "    pm.expect(responseData.role).to.eql(\"Traveler\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID Generated\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Nusu\",\r\n    \"lastName\": \"Chowdhury\",\r\n    \"email\": \"nusu@gmail.com\",\r\n    \"role\": \"Traveler\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/users/add",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "users",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Updated Name\", function () {\r",
+                  "    pm.expect(responseData.name).to.eql(\"Samia Chowdhury\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Updated Role\", function () {\r",
+                  "    pm.expect(responseData.role).to.eql(\"General Traveler\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Country Correct\", function () {\r",
+                  "    pm.expect(responseData.country).to.eql(\"Japan\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\r\n  \"name\":\"Samia Chowdhury\",\r\n  \"email\":\"samia@gmail.com\",\r\n  \"role\":\"General Traveler\",\r\n  \"country\":\"Japan\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/43",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "43"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PATCH user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Role Updated\", function () {\r",
+                  "    pm.expect(responseData.role).to.eql(\"Admin\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID Exists\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"role\":\"Admin\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/15",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "15"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DELETE user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Deleted User ID exists\", function () {\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User is deleted\", function () {\r",
+                  "    pm.expect(responseData.isDeleted).to.eql(true);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/users/1",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Pagination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Maximum 5 Users Returned\", function () {\r",
+                  "    pm.expect(pm.response.json().length).to.be.at.most(5);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users?page=1&limit=5",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter by country",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is Array\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users?country=Japan",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "country",
+                  "value": "Japan"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "sort user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Sorted Data Received\", function () {\r",
+                  "    pm.expect(pm.response.json()).to.be.an(\"array\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users?sortBy=name&order=asc",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "sortBy",
+                  "value": "name"
+                },
+                {
+                  "key": "order",
+                  "value": "asc"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "get user details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "\r",
+                  "pm.test(\"First name exists\", function () {\r",
+                  "    pm.expect(responseData.firstName).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Last name exists\", function () {\r",
+                  "    pm.expect(responseData.lastName).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Email exists\", function () {\r",
+                  "    pm.expect(responseData.email).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/users/8",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "users",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Destination",
+      "item": [
+        {
+          "name": "Get all countries",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Data is an array\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Data is not empty\", function () {\r",
+                  "    pm.expect(responseData.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Maximum 5 users returned\", function () {\r",
+                  "    pm.expect(responseData.length).to.be.at.most(5);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users?page=1&limit=5",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get single destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"User object exists\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"ID exists\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Email exists\", function () {\r",
+                  "    pm.expect(responseData.email).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Name exists\", function () {\r",
+                  "    pm.expect(responseData.name).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/2",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Destination name is correct\", function () {\r",
+                  "    pm.expect(responseData.title).to.eql(\"Cox's Bazar\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination type is correct\", function () {\r",
+                  "    pm.expect(responseData.body).to.eql(\"Beach Destination\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"ID is generated\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"title\": \"Cox's Bazar\",\r\n  \"body\": \"Beach Destination\",\r\n  \"userId\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/posts/add",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Another Destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Destination name is correct\", function () {\r",
+                  "    pm.expect(responseData.title).to.eql(\"Sajek Valley\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination type is correct\", function () {\r",
+                  "    pm.expect(responseData.body).to.eql(\"Hill Destination\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"ID is generated\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"User ID is correct\", function () {\r",
+                  "    pm.expect(responseData.userId).to.eql(3);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"title\": \"Sajek Valley\",\r\n    \"body\": \"Hill Destination\",\r\n    \"userId\": 3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://dummyjson.com/posts/add",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "add"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Put Update Destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Destination name is updated\", function () {\r",
+                  "    pm.expect(jsonData.name).to.eql(\"Cox's Bazar Updated\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination type is updated\", function () {\r",
+                  "    pm.expect(jsonData.job).to.eql(\"Popular Beach Destination\");\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Cox's Bazar Updated\",\r\n    \"job\": \"Popular Beach Destination\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/2",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Patch Update Destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const jsonData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Job is updated\", function () {\r",
+                  "    pm.expect(jsonData.job).to.eql(\"Tourist Attraction\");\r",
+                  "});\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"job\": \"Tourist Attraction\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/2",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Deleted Destination ID exists\", function () {\r",
+                  "    pm.expect(responseData.id).to.eql(1);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination is deleted\", function () {\r",
+                  "    pm.expect(responseData.isDeleted).to.eql(true);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://dummyjson.com/posts/1",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "posts",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GET Destination ID 5",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"User object exists\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Correct resource ID\", function () {\r",
+                  "    pm.expect(String(responseData.id)).to.eql(\"21\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Name exists\", function () {\r",
+                  "    pm.expect(responseData.name).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Country exists\", function () {\r",
+                  "    pm.expect(responseData.country).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/21",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "21"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "HEAD Destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"HEAD request returns successful status\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response body is empty\", function () {\r",
+                  "    pm.expect(pm.response.text()).to.eql(\"\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is below 2000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "HEAD",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/22",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "22"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "OPTIONS Destination",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"OPTIONS request returns successful status\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is below 2000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response headers are available\", function () {\r",
+                  "    pm.expect(pm.response.headers.count()).to.be.above(0);\r",
+                  "}); "
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "OPTIONS",
+            "header": [
+              {
+                "key": "",
+                "value": "",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "https://6a761ba432ae1141278431dc.mockapi.io/api/v1/users/23",
+              "protocol": "https",
+              "host": [
+                "6a761ba432ae1141278431dc",
+                "mockapi",
+                "io"
+              ],
+              "path": [
+                "api",
+                "v1",
+                "users",
+                "23"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Travel Destination Details",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Destination data exists\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination ID exists\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination title exists\", function () {\r",
+                  "    pm.expect(responseData.title).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination description exists\", function () {\r",
+                  "    pm.expect(responseData.description).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination price exists\", function () {\r",
+                  "    pm.expect(responseData.price).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://dummyjson.com/products/1",
+              "protocol": "https",
+              "host": [
+                "dummyjson",
+                "com"
+              ],
+              "path": [
+                "products",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Weather",
+      "item": [
+        {
+          "name": "GET Current Weather - Dhaka",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Latitude is a number\", function () {\r",
+                  "    pm.expect(responseData.latitude).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Longitude is a number\", function () {\r",
+                  "    pm.expect(responseData.longitude).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Daily forecast exists\", function () {\r",
+                  "    pm.expect(responseData.daily).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Maximum temperature exists\", function () {\r",
+                  "    pm.expect(responseData.daily.temperature_2m_max).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Minimum temperature exists\", function () {\r",
+                  "    pm.expect(responseData.daily.temperature_2m_min).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Maximum wind speed exists\", function () {\r",
+                  "    pm.expect(responseData.daily.windspeed_10m_max).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Temperature unit is Fahrenheit\", function () {\r",
+                  "    pm.expect(responseData.daily_units.temperature_2m_max).to.eql(\"°F\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.open-meteo.com/v1/forecast?latitude=37.77&longitude=-122.42&daily=temperature_2m_max&daily=windspeed_10m_max&timezone=America/Los_Angeles&daily=temperature_2m_min&temperature_unit=fahrenheit",
+              "protocol": "https",
+              "host": [
+                "api",
+                "open-meteo",
+                "com"
+              ],
+              "path": [
+                "v1",
+                "forecast"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "37.77"
+                },
+                {
+                  "key": "longitude",
+                  "value": "-122.42"
+                },
+                {
+                  "key": "daily",
+                  "value": "temperature_2m_max"
+                },
+                {
+                  "key": "daily",
+                  "value": "windspeed_10m_max"
+                },
+                {
+                  "key": "timezone",
+                  "value": "America/Los_Angeles"
+                },
+                {
+                  "key": "daily",
+                  "value": "temperature_2m_min"
+                },
+                {
+                  "key": "temperature_unit",
+                  "value": "fahrenheit"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Air quality",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://air-quality-api.open-meteo.com/v1/air-quality?latitude=23.8103&longitude=90.4125&hourly=pm10,pm2_5,carbon_monoxide,nitrogen_dioxide&timezone=Asia%2FDhaka&forecast_days=1",
+              "protocol": "https",
+              "host": [
+                "air-quality-api",
+                "open-meteo",
+                "com"
+              ],
+              "path": [
+                "v1",
+                "air-quality"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "23.8103"
+                },
+                {
+                  "key": "longitude",
+                  "value": "90.4125"
+                },
+                {
+                  "key": "hourly",
+                  "value": "pm10,pm2_5,carbon_monoxide,nitrogen_dioxide"
+                },
+                {
+                  "key": "timezone",
+                  "value": "Asia%2FDhaka"
+                },
+                {
+                  "key": "forecast_days",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Precipitation Forecast",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Hourly data exists\", function () {\r",
+                  "    pm.expect(responseData.hourly).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Precipitation probability exists\", function () {\r",
+                  "    pm.expect(responseData.hourly.precipitation_probability).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Precipitation data exists\", function () {\r",
+                  "    pm.expect(responseData.hourly.precipitation).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Forecast data is not empty\", function () {\r",
+                  "    pm.expect(responseData.hourly.precipitation_probability.length).to.be.above(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.open-meteo.com/v1/forecast?latitude=23.8103&longitude=90.4125&hourly=precipitation_probability,precipitation&timezone=Asia%2FDhaka&forecast_days=1",
+              "protocol": "https",
+              "host": [
+                "api",
+                "open-meteo",
+                "com"
+              ],
+              "path": [
+                "v1",
+                "forecast"
+              ],
+              "query": [
+                {
+                  "key": "latitude",
+                  "value": "23.8103"
+                },
+                {
+                  "key": "longitude",
+                  "value": "90.4125"
+                },
+                {
+                  "key": "hourly",
+                  "value": "precipitation_probability,precipitation"
+                },
+                {
+                  "key": "timezone",
+                  "value": "Asia%2FDhaka"
+                },
+                {
+                  "key": "forecast_days",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Currency",
+      "item": [
+        {
+          "name": "Get USD to BDT Exchange Rate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Base currency is USD\", function () {\r",
+                  "    pm.expect(responseData.base).to.eql(\"USD\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Quote currency is BDT\", function () {\r",
+                  "    pm.expect(responseData.quote).to.eql(\"BDT\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Exchange rate is a number\", function () {\r",
+                  "    pm.expect(responseData.rate).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Exchange rate is positive\", function () {\r",
+                  "    pm.expect(responseData.rate).to.be.above(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.frankfurter.dev/v2/rate/USD/BDT",
+              "protocol": "https",
+              "host": [
+                "api",
+                "frankfurter",
+                "dev"
+              ],
+              "path": [
+                "v2",
+                "rate",
+                "USD",
+                "BDT"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get USD Exchange Rates",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"USD is the base currency\", function () {\r",
+                  "    pm.expect(responseData.every(item => item.base === \"USD\")).to.be.true;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Requested currencies are returned\", function () {\r",
+                  "    const quotes = responseData.map(item => item.quote);\r",
+                  "\r",
+                  "    pm.expect(quotes).to.include(\"EUR\");\r",
+                  "    pm.expect(quotes).to.include(\"GBP\");\r",
+                  "    pm.expect(quotes).to.include(\"BDT\");\r",
+                  "    pm.expect(quotes).to.include(\"JPY\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Exchange rates are valid numbers\", function () {\r",
+                  "    responseData.forEach(item => {\r",
+                  "        pm.expect(item.rate).to.be.a(\"number\");\r",
+                  "        pm.expect(item.rate).to.be.above(0);\r",
+                  "    });\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.frankfurter.dev/v2/rates?base=USD&quotes=EUR,GBP,BDT,JPY",
+              "protocol": "https",
+              "host": [
+                "api",
+                "frankfurter",
+                "dev"
+              ],
+              "path": [
+                "v2",
+                "rates"
+              ],
+              "query": [
+                {
+                  "key": "base",
+                  "value": "USD"
+                },
+                {
+                  "key": "quotes",
+                  "value": "EUR,GBP,BDT,JPY"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Supported Currencies List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Currencies response is an array\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Currencies are available\", function () {\r",
+                  "    pm.expect(responseData.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Currency code exists\", function () {\r",
+                  "    pm.expect(responseData[0].iso_code).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Currency name exists\", function () {\r",
+                  "    pm.expect(responseData[0].name).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Currency symbol exists\", function () {\r",
+                  "    pm.expect(responseData[0].symbol).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.frankfurter.dev/v2/currencies",
+              "protocol": "https",
+              "host": [
+                "api",
+                "frankfurter",
+                "dev"
+              ],
+              "path": [
+                "v2",
+                "currencies"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "USD to BDT Rate History",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Rate history is available\", function () {\r",
+                  "    pm.expect(responseData.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Base currency is USD\", function () {\r",
+                  "    pm.expect(responseData[0].base).to.eql(\"USD\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Quote currency is BDT\", function () {\r",
+                  "    pm.expect(responseData[0].quote).to.eql(\"BDT\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Rate is a positive number\", function () {\r",
+                  "    pm.expect(responseData[0].rate).to.be.a(\"number\");\r",
+                  "    pm.expect(responseData[0].rate).to.be.above(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.frankfurter.dev/v2/rates?base=USD&quotes=BDT&from=2026-08-01&to=2026-08-07",
+              "protocol": "https",
+              "host": [
+                "api",
+                "frankfurter",
+                "dev"
+              ],
+              "path": [
+                "v2",
+                "rates"
+              ],
+              "query": [
+                {
+                  "key": "base",
+                  "value": "USD"
+                },
+                {
+                  "key": "quotes",
+                  "value": "BDT"
+                },
+                {
+                  "key": "from",
+                  "value": "2026-08-01"
+                },
+                {
+                  "key": "to",
+                  "value": "2026-08-07"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get EUR to USD  Exchange Rate",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Base currency is EUR\", function () {\r",
+                  "    pm.expect(responseData.base).to.eql(\"EUR\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Target currency is USD\", function () {\r",
+                  "    pm.expect(responseData.quote).to.eql(\"USD\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Exchange rate exists\", function () {\r",
+                  "    pm.expect(responseData.rate).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Exchange rate is positive\", function () {\r",
+                  "    pm.expect(responseData.rate).to.be.above(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://api.frankfurter.dev/v2/rate/EUR/USD",
+              "protocol": "https",
+              "host": [
+                "api",
+                "frankfurter",
+                "dev"
+              ],
+              "path": [
+                "v2",
+                "rate",
+                "EUR",
+                "USD"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Travel Intelligence & Booking",
+      "item": [
+        {
+          "name": "Get Booking IDs",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Response is an array\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Booking IDs exist\", function () {\r",
+                  "    pm.expect(responseData.length).to.be.above(0);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"First booking has ID\", function () {\r",
+                  "    pm.expect(responseData[0].bookingid).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get single booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"First name exists\", function () {\r",
+                  "    pm.expect(responseData.firstname).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Last name exists\", function () {\r",
+                  "    pm.expect(responseData.lastname).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Total price is a number\", function () {\r",
+                  "    pm.expect(responseData.totalprice).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Booking dates exist\", function () {\r",
+                  "    pm.expect(responseData.bookingdates).to.be.an(\"object\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking/9",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking",
+                "9"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create New Hotel Booking",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Booking ID is generated\", function () {\r",
+                  "    pm.expect(responseData.bookingid).to.be.a(\"number\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Booking data exists\", function () {\r",
+                  "    pm.expect(responseData.booking).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Guest first name is correct\", function () {\r",
+                  "    pm.expect(responseData.booking.firstname).to.eql(\"Sahara\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Total price is correct\", function () {\r",
+                  "    pm.expect(responseData.booking.totalprice).to.eql(25000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstname\": \"Sahara\",\r\n    \"lastname\": \"Chowdhury\",\r\n    \"totalprice\": 25000,\r\n    \"depositpaid\": true,\r\n    \"bookingdates\": {\r\n        \"checkin\": \"2026-08-15\",\r\n        \"checkout\": \"2026-08-18\"\r\n    },\r\n    \"additionalneeds\": \"Breakfast\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://restful-booker.herokuapp.com/booking",
+              "protocol": "https",
+              "host": [
+                "restful-booker",
+                "herokuapp",
+                "com"
+              ],
+              "path": [
+                "booking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create Restaurant Review",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 201\", function () {\r",
+                  "    pm.response.to.have.status(201);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Review ID exists\", function () {\r",
+                  "    pm.expect(responseData.id).to.exist;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Review name exists\", function () {\r",
+                  "    pm.expect(responseData.name).to.exist;\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Cox's Bazar Food Review\",\r\n  \"email\": \"traveler@example.com\",\r\n  \"body\": \"Excellent local food and service.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/comments",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "comments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Restaurant Review",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Review was updated\", function () {\r",
+                  "    pm.expect(responseData.name).to.eql(\"Updated Travel Restaurant Review\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"name\": \"Updated Travel Restaurant Review\",\r\n  \"email\": \"traveler@example.com\",\r\n  \"body\": \"Updated review after visiting the restaurant.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/comments/8",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "comments",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Partially update review",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Review body was patched\", function () {\r",
+                  "    pm.expect(responseData.body).to.eql(\r",
+                  "        \"Updated review: very good food and environment.\"\r",
+                  "    );\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"body\": \"Updated review: very good food and environment.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/comments/5",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "comments",
+                "5"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Restaurant review",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response time is below 2000ms\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/comments/48",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "comments",
+                "48"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Check Resource Headers — HEAD",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response contains headers\", function () {\r",
+                  "    pm.expect(pm.response.headers.count()).to.be.above(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "HEAD",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.dev/head",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "dev"
+              ],
+              "path": [
+                "head"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "check option request",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Request method is OPTIONS\", function () {\r",
+                  "    pm.expect(responseData.method).to.eql(\"OPTIONS\");\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "OPTIONS",
+            "header": [],
+            "url": {
+              "raw": "https://httpbin.dev/options",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "dev"
+              ],
+              "path": [
+                "options"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search Hotel Recommendations — GET",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Hotel recommendations are returned\", function () {\r",
+                  "    pm.expect(responseData).to.be.an(\"array\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"At least one recommendation exists\", function () {\r",
+                  "    pm.expect(responseData.length).to.be.above(0);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://jsonplaceholder.typicode.com/comments?postId=1",
+              "protocol": "https",
+              "host": [
+                "jsonplaceholder",
+                "typicode",
+                "com"
+              ],
+              "path": [
+                "comments"
+              ],
+              "query": [
+                {
+                  "key": "postId",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "calculate trip expense",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status Code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Response is JSON\", function () {\r",
+                  "    pm.response.to.be.json;\r",
+                  "});\r",
+                  "\r",
+                  "const responseData = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Request data exists\", function () {\r",
+                  "    pm.expect(responseData.json).to.be.an(\"object\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Destination is correct\", function () {\r",
+                  "    pm.expect(responseData.json.destination).to.eql(\"Cox's Bazar\");\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Travelers count is correct\", function () {\r",
+                  "    pm.expect(responseData.json.travelers).to.eql(2);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Budget is correct\", function () {\r",
+                  "    pm.expect(responseData.json.budget).to.eql(20000);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"destination\": \"Cox's Bazar\",\r\n  \"travelers\": 2,\r\n  \"days\": 3,\r\n  \"budget\": 20000,\r\n  \"currency\": \"BDT\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://httpbin.dev/post",
+              "protocol": "https",
+              "host": [
+                "httpbin",
+                "dev"
+              ],
+              "path": [
+                "post"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
