@@ -26,4 +26,7 @@ jobs:
         
        - name: Run Nusrat API Tests
         run: newman run tests/postman/Nusrat_API_Tests.json
+
+        - name: Run Sahara API Tests
+        run: newman run tests/postman/Sahara_API_Tests.json
   
