@@ -1,0 +1,2622 @@
+{
+  "info": {
+    "_postman_id": "44f01887-d4b7-46a3-9416-04d81b9c1e7f",
+    "name": "API TESTING ASSIGNMENT",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31813007"
+  },
+  "item": [
+    {
+      "name": "GET Random Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Products data exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"Each product has id\", function () {",
+              "    const products = jsonData.data.data;",
+              "    products.forEach(p => pm.expect(p.id).to.exist);",
+              "});",
+              "pm.test(\"Each product has title\", function () {",
+              "    const products = jsonData.data.data;",
+              "    products.forEach(p => pm.expect(p.title).to.exist);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "HEAD Random Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response headers exist\", function () {",
+              "    pm.expect(pm.response.headers).to.exist;",
+              "});",
+              "pm.test(\"Content-Type header exists\", function () {",
+              "    pm.response.to.have.header(\"Content-Type\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "HEAD",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random Users with 10 Limit",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users array contains 10 users\", function () {",
+              "    pm.expect(jsonData.data.data.length).to.eql(10);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=10",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE HTTP Method Test 4",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/delete",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "delete"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Products with Limit 5",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Products array contains 5 products\", function () {",
+              "    pm.expect(jsonData.data.data.length).to.eql(5);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts?limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "HEAD Products with Limit",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response headers exist\", function () {",
+              "    pm.expect(pm.response.headers).to.exist;",
+              "});",
+              "pm.test(\"Content-Type header exists\", function () {",
+              "    pm.response.to.have.header(\"Content-Type\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "HEAD",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts?limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ],
+          "query": [
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random Users Page 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"Current page is 2\", function () {",
+              "    pm.expect(jsonData.data.page).to.eql(2);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=2&limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH HTTP Method Test 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"completed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/patch",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "patch"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 8",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST HTTP Method Test 4",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Deploy staging build\",\n  \"description\": \"Push latest commit\",\n  \"completed\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/post",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "post"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 9",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT HTTP Method Test 4",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Deploy staging build\",\n  \"description\": \"Push latest commit\",\n  \"completed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/put",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "put"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 7",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE HTTP Method Test 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/delete",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "delete"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Products with Price Range",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Products exist\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts?minPrice=10&maxPrice=100",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ],
+          "query": [
+            {
+              "key": "minPrice",
+              "value": "10"
+            },
+            {
+              "key": "maxPrice",
+              "value": "100"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "HEAD User Profile",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response headers exist\", function () {",
+              "    pm.expect(pm.response.headers).to.exist;",
+              "});",
+              "pm.test(\"Content-Type header exists\", function () {",
+              "    pm.response.to.have.header(\"Content-Type\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "HEAD",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{accessToken}}"
+          }
+        ],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/users/profile",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "users",
+            "profile"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Users with Picture",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"All users have pictures\", function () {",
+              "    const users = jsonData.data.data;",
+              "    users.forEach(u => pm.expect(u.picture).to.exist);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "OPTIONS HTTP Method Test 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200 or 204\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "OPTIONS",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Products with Category",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Products exist\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts?category=electronics",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ],
+          "query": [
+            {
+              "key": "category",
+              "value": "electronics"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH HTTP Method Test 4",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"completed\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/patch",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "patch"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST HTTP Method Test 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Write unit tests\",\n  \"description\": \"Cover the auth module\",\n  \"completed\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/post",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "post"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Users with Location",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"All users have location\", function () {",
+              "    const users = jsonData.data.data;",
+              "    users.forEach(u => pm.expect(u.location).to.exist);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT HTTP Method Test 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Write unit tests\",\n  \"description\": \"Cover the auth module\",\n  \"completed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/put",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "put"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Products Page 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Products data exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts?page=2&limit=10",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "2"
+            },
+            {
+              "key": "limit",
+              "value": "10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE HTTP Method Test 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/delete",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "delete"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Request is successful\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});",
+              "pm.test(\"User ID exists\", function () {",
+              "    pm.expect(jsonData.data.id).to.exist;",
+              "});",
+              "pm.test(\"Email exists\", function () {",
+              "    pm.expect(jsonData.data.email).to.exist;",
+              "});",
+              "pm.test(\"First name exists\", function () {",
+              "    pm.expect(jsonData.data.name.first).to.exist;",
+              "});",
+              "pm.test(\"Last name exists\", function () {",
+              "    pm.expect(jsonData.data.name.last).to.exist;",
+              "});",
+              "pm.test(\"Gender exists\", function () {",
+              "    pm.expect(jsonData.data.gender).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "HEAD Random Users",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response headers exist\", function () {",
+              "    pm.expect(pm.response.headers).to.exist;",
+              "});",
+              "pm.test(\"Content-Type header exists\", function () {",
+              "    pm.response.to.have.header(\"Content-Type\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "HEAD",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Users by Nationality",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5&nationality=US",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            },
+            {
+              "key": "nationality",
+              "value": "US"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "OPTIONS HTTP Method Test 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200 or 204\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "OPTIONS",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/options",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "options"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Users by Gender Male",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "// Note: this API does not actually filter by the gender query param,",
+              "// so we only verify each user has a valid gender value rather than",
+              "// asserting they are all \"male\".",
+              "pm.test(\"Each user has a gender field\", function () {",
+              "    const users = jsonData.data.data;",
+              "    users.forEach(u => pm.expect(['male', 'female']).to.include(u.gender));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5&gender=male",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            },
+            {
+              "key": "gender",
+              "value": "male"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH HTTP Method Test 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Renamed task\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/patch",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "patch"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 10",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST HTTP Method Test 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Refactor API client\",\n  \"description\": \"Split into modules\",\n  \"completed\": false\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/post",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "post"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET All Products",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Products data exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"Products array is not empty\", function () {",
+              "    pm.expect(jsonData.data.data.length).to.be.above(0);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts?page=1&limit=20",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "20"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT HTTP Method Test 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Refactor API client\",\n  \"description\": \"Split into modules\",\n  \"completed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/put",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "put"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 6",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE HTTP Method Test 1",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/delete",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "delete"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Specific User by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "HEAD Users with Gender",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response headers exist\", function () {",
+              "    pm.expect(pm.response.headers).to.exist;",
+              "});",
+              "pm.test(\"Content-Type header exists\", function () {",
+              "    pm.response.to.have.header(\"Content-Type\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "HEAD",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5&gender=male",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            },
+            {
+              "key": "gender",
+              "value": "male"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Users by Gender Female",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "// Note: this API does not actually filter by the gender query param,",
+              "// so we only verify each user has a valid gender value rather than",
+              "// asserting they are all \"female\".",
+              "pm.test(\"Each user has a gender field\", function () {",
+              "    const users = jsonData.data.data;",
+              "    users.forEach(u => pm.expect(['male', 'female']).to.include(u.gender));",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5&gender=female",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            },
+            {
+              "key": "gender",
+              "value": "female"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "OPTIONS HTTP Method Test 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200 or 204\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "OPTIONS",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Users with Phone Number",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"All users have phone numbers\", function () {",
+              "    const users = jsonData.data.data;",
+              "    users.forEach(u => pm.expect(u.phone).to.exist);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PATCH HTTP Method Test 2",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PATCH",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"description\": \"Updated scope\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/patch",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "patch"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Products with Sort",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Products exist\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomproducts?sort=price_asc",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomproducts"
+          ],
+          "query": [
+            {
+              "key": "sort",
+              "value": "price_asc"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "POST HTTP Method Test 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Update README\",\n  \"description\": \"Document new endpoints\",\n  \"completed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/post",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "post"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random Users List",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Users list exists\", function () {",
+              "    pm.expect(jsonData.data.data).to.be.an(\"array\");",
+              "});",
+              "pm.test(\"Users array contains 5 users\", function () {",
+              "    pm.expect(jsonData.data.data.length).to.eql(5);",
+              "});",
+              "pm.test(\"Pagination data exists\", function () {",
+              "    pm.expect(jsonData.data.page).to.exist;",
+              "    pm.expect(jsonData.data.totalPages).to.exist;",
+              "});",
+              "pm.test(\"Current page is 1\", function () {",
+              "    pm.expect(jsonData.data.page).to.eql(1);",
+              "});",
+              "pm.test(\"Total pages exists\", function () {",
+              "    pm.expect(jsonData.data.totalPages).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers?page=1&limit=5",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers"
+          ],
+          "query": [
+            {
+              "key": "page",
+              "value": "1"
+            },
+            {
+              "key": "limit",
+              "value": "5"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "PUT HTTP Method Test 3",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"Response body exists\", function () {",
+              "    pm.expect(jsonData).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Update README\",\n  \"description\": \"Document new endpoints\",\n  \"completed\": true\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/kitchen-sink/http-methods/put",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "kitchen-sink",
+            "http-methods",
+            "put"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 4",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET Random User 5",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status Code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "pm.test(\"Response is JSON\", function () {",
+              "    pm.response.to.be.json;",
+              "});",
+              "const jsonData = pm.response.json();",
+              "pm.test(\"User found successfully\", function () {",
+              "    pm.expect(jsonData.success).to.eql(true);",
+              "});",
+              "pm.test(\"User data exists\", function () {",
+              "    pm.expect(jsonData.data).to.exist;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "https://api.freeapi.app/api/v1/public/randomusers/user/random",
+          "protocol": "https",
+          "host": [
+            "api",
+            "freeapi",
+            "app"
+          ],
+          "path": [
+            "api",
+            "v1",
+            "public",
+            "randomusers",
+            "user",
+            "random"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
