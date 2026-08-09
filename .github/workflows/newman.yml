@@ -30,3 +30,6 @@ jobs:
 
       - name: Run Sahara API Tests
         run: newman run tests/postman/Sahara_API_Tests.json
+
+      - name: Run Mahmuda API Tests
+        run: newman run tests/postman/Mahmuda_API_Tests.json
