@@ -1,0 +1,32 @@
+name: Newman API Tests
+
+on:
+  push:
+    branches:
+      - main
+      - development
+
+  pull_request:
+    branches:
+      - main
+      - development
+
+jobs:
+  newman:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Newman
+        run: npm install -g newman
+
+      - name: Run Moutithi API Tests
+        run: newman run tests/postman/Moutithi.FreeApi.json
+
+      - name: Run Nusrat API Tests
+        run: newman run tests/postman/Nusrat_API_Tests.json
+
+      - name: Run Sahara API Tests
+        run: newman run tests/postman/Sahara_API_Tests.json
