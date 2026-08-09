@@ -7,7 +7,7 @@
   },
   "item": [
     {
-      "name": "get all uers",
+      "name": "get all users",
       "event": [
         {
           "listen": "test",
@@ -77,6 +77,10 @@
               "    pm.response.to.have.status(200);\r",
               "});\r",
               "\r",
+              "pm.test(\"Response is JSON\", function () {\r",
+              "    pm.response.to.be.json;\r",
+              "});\r",
+              "\r",
               "pm.test(\"User ID is 1\", function () {\r",
               "    const data = pm.response.json();\r",
               "    pm.expect(data.id).to.eql(1);\r",
@@ -100,7 +104,13 @@
       ],
       "request": {
         "method": "GET",
-        "header": [],
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
         "url": {
           "raw": "{{baseUrl}}/users/1",
           "host": [
@@ -382,7 +392,7 @@
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"title\": \"PATCH Updated Post\"\r\n}"
+          "raw": ""
         },
         "url": {
           "raw": "{{baseUrl}}/posts/3",
@@ -690,6 +700,32 @@
       "response": []
     },
     {
+      "name": "create post 5",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"userId\": 5,\r\n  \"title\": \"Web Development\",\r\n  \"body\": \"I am learning frontend development.\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{baseUrl}}/posts",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "posts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "update post 1",
       "request": {
         "method": "PUT",
@@ -873,7 +909,7 @@
           "raw": "{\r\n  \"title\": \"PATCH Updated Post 6\"\r\n}",
           "options": {
             "raw": {
-              "language": "text"
+              "language": "json"
             }
           }
         },
@@ -1157,33 +1193,7 @@
       "response": []
     },
     {
-      "name": "create user",
-      "request": {
-        "method": "POST",
-        "header": [],
-        "body": {
-          "mode": "raw",
-          "raw": "{\r\n  \"name\": \"Mahmuda Akter\",\r\n  \"username\": \"mahmuda\",\r\n  \"email\": \"mahmuda@example.com\"\r\n}",
-          "options": {
-            "raw": {
-              "language": "json"
-            }
-          }
-        },
-        "url": {
-          "raw": "{{baseUrl}}/users",
-          "host": [
-            "{{baseUrl}}"
-          ],
-          "path": [
-            "users"
-          ]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "petch user2",
+      "name": "petch user 2",
       "request": {
         "method": "PATCH",
         "header": [],
