@@ -7,7 +7,7 @@
   },
   "item": [
     {
-      "name": "get user respons",
+      "name": "get all uers",
       "event": [
         {
           "listen": "test",
@@ -403,13 +403,13 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/posts/3",
+          "raw": "{{baseUrl}}/posts/10",
           "host": [
             "{{baseUrl}}"
           ],
           "path": [
             "posts",
-            "3"
+            "10"
           ]
         }
       },
@@ -870,7 +870,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "pm.test(\"Status code is 200\", function () {\r\n    pm.response.to.have.status(200);\r\n});\r\n\r\npm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\npm.test(\"Response has id\", function () {\r\n    const data = pm.response.json();\r\n    pm.expect(data).to.have.property(\"id\");\r\n});",
+          "raw": "{\r\n  \"title\": \"PATCH Updated Post 6\"\r\n}",
           "options": {
             "raw": {
               "language": "text"
@@ -1270,7 +1270,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"name\": \"Mahmuda PATCH Updated 8\"\r\n}"
+          "raw": ""
         },
         "url": {
           "raw": "{{baseUrl}}/users/10",
@@ -1407,7 +1407,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n  \"id\": 1,\r\n  \"title\": \"Updated Post\",\r\n  \"body\": \"This post has been updated\",\r\n  \"userId\": 1\r\n}",
+          "raw": "{\r\n  \"id\": 5,\r\n  \"title\": \"Updated Post\",\r\n  \"body\": \"This post has been updated\",\r\n  \"userId\": 1\r\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -1455,7 +1455,7 @@
   "variable": [
     {
       "key": "baseUrl",
-      "value": ""
+      "value": "https://jsonplaceholder.typicode.com"
     }
   ]
 }
