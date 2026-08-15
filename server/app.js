@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 
 const tripRoutes = require("./routes/tripRoutes");
+const userRoutes = require("./routes/userRoutes");
+const travelPreferenceRoutes = require("./routes/travelPreferenceRoutes");
 
 const app = express();
 
@@ -16,5 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/trips", tripRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/preferences", travelPreferenceRoutes);
 
 module.exports = app;
