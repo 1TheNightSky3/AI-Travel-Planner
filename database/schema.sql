@@ -20,6 +20,22 @@ CREATE TABLE IF NOT EXISTS trips (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+
+-- ============================================
+-- ACCOMMODATIONS TABLE
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS accommodations (
+    accommodation_id INT AUTO_INCREMENT PRIMARY KEY,
+    destination VARCHAR(255) NOT NULL,
+    accommodation_name VARCHAR(255) NOT NULL,
+    address VARCHAR(500),
+    price_per_night DECIMAL(10,2) NOT NULL,
+    rating DECIMAL(3,2),
+    facilities TEXT
+);
+
+
 -- ============================================
 -- EXPENSES TABLE
 -- ============================================
