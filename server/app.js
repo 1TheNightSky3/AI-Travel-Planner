@@ -3,11 +3,13 @@ const cors = require("cors");
 
 const tripRoutes = require("./routes/tripRoutes");
 const accommodationRoutes = require("./routes/accommodationRoutes");
+const expenseRoutes = require("./routes/expenseRoutes");
+const userRoutes = require("./routes/userRoutes");
+const travelPreferenceRoutes = require("./routes/travelPreferenceRoutes");
 
 const app = express();
 
 app.use(cors());
-
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -16,7 +18,19 @@ app.get("/", (req, res) => {
     });
 });
 
+// Trip routes
 app.use("/api/trips", tripRoutes);
+
+// Accommodation routes
 app.use("/api/accommodations", accommodationRoutes);
+
+// User routes
+app.use("/api/users", userRoutes);
+
+// Travel preference routes
+app.use("/api/preferences", travelPreferenceRoutes);
+
+// Expense routes
+app.use("/api/expenses", expenseRoutes);
 
 module.exports = app;
