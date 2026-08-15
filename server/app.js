@@ -3,6 +3,8 @@ const cors = require("cors");
 
 const tripRoutes = require("./routes/tripRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
+const userRoutes = require("./routes/userRoutes");
+const travelPreferenceRoutes = require("./routes/travelPreferenceRoutes");
 
 const app = express();
 
@@ -17,6 +19,8 @@ app.get("/", (req, res) => {
 
 // Trip routes
 app.use("/api/trips", tripRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/preferences", travelPreferenceRoutes);
 
 // Expense routes
 app.use("/api/expenses", expenseRoutes);
