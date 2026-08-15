@@ -20,6 +20,28 @@ CREATE TABLE IF NOT EXISTS trips (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+-- ============================================
+-- EXPENSES TABLE
+-- ============================================
+
+CREATE TABLE IF NOT EXISTS trip_expenses (
+    expense_id INT AUTO_INCREMENT PRIMARY KEY,
+    trip_id INT NOT NULL,
+    expense_category ENUM(
+        'Accommodation',
+        'Transportation',
+        'Food',
+        'Activity',
+        'Other'
+    ) NOT NULL,
+    description VARCHAR(255),
+    amount DECIMAL(10,2) NOT NULL,
+    expense_date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (trip_id) REFERENCES trips(id) ON DELETE CASCADE
+);
+
 
 -- ============================================
 -- USERS TABLE
