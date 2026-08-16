@@ -33,3 +33,5 @@ jobs:
 
       - name: Run Mahmuda API Tests
         run: newman run tests/postman/Mahmuda_API_Testss.json
+       -name: Run Expense_managemet API Tests
+        run: newman run tests/postman/Expense_Management.json
