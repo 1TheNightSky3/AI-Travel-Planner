@@ -6,6 +6,7 @@ const accommodationRoutes = require("./routes/accommodationRoutes");
 const expenseRoutes = require("./routes/expenseRoutes");
 const userRoutes = require("./routes/userRoutes");
 const travelPreferenceRoutes = require("./routes/travelPreferenceRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
@@ -17,6 +18,9 @@ app.get("/", (req, res) => {
         message: "AI Travel Planner Backend is running"
     });
 });
+
+// Authentication routes
+app.use("/api/auth", authRoutes);
 
 // Trip routes
 app.use("/api/trips", tripRoutes);

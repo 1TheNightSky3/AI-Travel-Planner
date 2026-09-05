@@ -1,0 +1,292 @@
+{
+  "info": {
+    "_postman_id": "da4eefd2-1401-4bef-bfe7-84c281580901",
+    "name": "user_authentication_authorization",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57202771",
+    "_collection_link": "https://go.postman.co/collection/57202771-da4eefd2-1401-4bef-bfe7-84c281580901?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "create_user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\nif (pm.response.code === 201) {\r\n\r\n    pm.test(\"Status code is 201\", function () {\r\n        pm.expect(pm.response.code).to.eql(201);\r\n    });\r\n\r\n    pm.test(\"Success is true\", function () {\r\n        pm.expect(jsonData.success).to.eql(true);\r\n    });\r\n\r\n    pm.test(\"Success message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"User created successfully\");\r\n    });\r\n\r\n    pm.test(\"User ID exists\", function () {\r\n        pm.expect(jsonData.user_id).to.exist;\r\n    });\r\n\r\n    pm.test(\"User ID is a number\", function () {\r\n        pm.expect(jsonData.user_id).to.be.a(\"number\");\r\n    });\r\n\r\n} else if (pm.response.code === 400) {\r\n\r\n    pm.test(\"Status code is 400\", function () {\r\n        pm.expect(pm.response.code).to.eql(400);\r\n    });\r\n\r\n    pm.test(\"Success is false\", function () {\r\n        pm.expect(jsonData.success).to.eql(false);\r\n    });\r\n\r\n    pm.test(\"Error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 401) {\r\n\r\n    pm.test(\"Status code is 401\", function () {\r\n        pm.expect(pm.response.code).to.eql(401);\r\n    });\r\n\r\n    pm.test(\"Authentication error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 403) {\r\n\r\n    pm.test(\"Status code is 403\", function () {\r\n        pm.expect(pm.response.code).to.eql(403);\r\n    });\r\n\r\n    pm.test(\"Access denied message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 409) {\r\n\r\n    pm.test(\"Status code is 409\", function () {\r\n        pm.expect(pm.response.code).to.eql(409);\r\n    });\r\n\r\n    \r\n    pm.test(\"Duplicate email message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"Email already exists\");\r\n    });\r\n\r\n} else if (pm.response.code === 500) {\r\n\r\n    pm.test(\"Server error should not occur\", function () {\r\n        pm.expect.fail(\"Server error occurred. Check backend console.\");\r\n    });\r\n\r\n} else {\r\n\r\n    pm.test(\"Unexpected status code\", function () {\r\n        pm.expect.fail(\r\n            \"Unexpected status code: \" + pm.response.code\r\n        );\r\n    });\r\n}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"full_name\": \"ll\",\r\n    \"email\": \"ll@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"phone\": \"01900090800\",\r\n    \"country\": \"India\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "log in user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\nif (pm.response.code === 200) {\r\n\r\n    pm.test(\"Status code is 200\", function () {\r\n        pm.expect(pm.response.code).to.eql(200);\r\n    });\r\n\r\n    pm.test(\"Login success message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"Login successful\");\r\n    });\r\n\r\n    pm.test(\"Token exists\", function () {\r\n        pm.expect(jsonData.token).to.exist;\r\n    });\r\n\r\n    pm.test(\"Token is a string\", function () {\r\n        pm.expect(jsonData.token).to.be.a(\"string\");\r\n    });\r\n\r\n    pm.test(\"Token is not empty\", function () {\r\n        pm.expect(jsonData.token).to.not.be.empty;\r\n    });\r\n\r\n    pm.test(\"User object exists\", function () {\r\n        pm.expect(jsonData.user).to.exist;\r\n    });\r\n\r\n    pm.test(\"User ID exists\", function () {\r\n        pm.expect(jsonData.user.user_id).to.exist;\r\n    });\r\n\r\n    pm.test(\"User ID is a number\", function () {\r\n        pm.expect(jsonData.user.user_id).to.be.a(\"number\");\r\n    });\r\n\r\n    pm.test(\"Full name exists\", function () {\r\n        pm.expect(jsonData.user.full_name).to.exist;\r\n    });\r\n\r\n    pm.test(\"Email exists\", function () {\r\n        pm.expect(jsonData.user.email).to.exist;\r\n    });\r\n\r\n    pm.test(\"Email is correct\", function () {\r\n        const requestData = JSON.parse(pm.request.body.raw);\r\n        pm.expect(jsonData.user.email).to.eql(requestData.email);\r\n    });\r\n\r\n    pm.test(\"Role exists\", function () {\r\n        pm.expect(jsonData.user.role).to.exist;\r\n    });\r\n\r\n    pm.test(\"Password is not exposed\", function () {\r\n        pm.expect(jsonData.user).to.not.have.property(\"password\");\r\n    });\r\n\r\n} else if (pm.response.code === 400) {\r\n\r\n    pm.test(\"Status code is 400\", function () {\r\n        pm.expect(pm.response.code).to.eql(400);\r\n    });\r\n\r\n    pm.test(\"Error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 401) {\r\n\r\n    pm.test(\"Status code is 401\", function () {\r\n        pm.expect(pm.response.code).to.eql(401);\r\n    });\r\n\r\n    pm.test(\"Invalid login message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"Invalid email or password\");\r\n    });\r\n\r\n} else if (pm.response.code === 500) {\r\n\r\n    pm.test(\"Server error should not occur\", function () {\r\n        pm.expect.fail(\"Server error occurred. Check backend console.\");\r\n    });\r\n\r\n} else {\r\n\r\n    pm.test(\"Unexpected status code\", function () {\r\n        pm.expect.fail(\r\n            \"Unexpected status code: \" + pm.response.code\r\n        );\r\n    });\r\n}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{ \r\n    \"email\": \"sq@gmail.com\",\r\n    \"password\": \"12345678\"\r\n    \r\n} ",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/auth/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get_new_user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\nif (pm.response.code === 200) {\r\n\r\n    pm.test(\"Status code is 200\", function () {\r\n        pm.expect(pm.response.code).to.eql(200);\r\n    });\r\n\r\n    pm.test(\"Success is true\", function () {\r\n        pm.expect(jsonData.success).to.eql(true);\r\n    });\r\n\r\n    pm.test(\"Data exists\", function () {\r\n        pm.expect(jsonData.data).to.exist;\r\n    });\r\n\r\n    pm.test(\"Data is an array\", function () {\r\n        pm.expect(jsonData.data).to.be.an(\"array\");\r\n    });\r\n\r\n    pm.test(\"Users exist\", function () {\r\n        pm.expect(jsonData.data.length).to.be.greaterThan(0);\r\n    });\r\n\r\n    pm.test(\"First user ID exists\", function () {\r\n        pm.expect(jsonData.data[0].user_id).to.exist;\r\n    });\r\n\r\n    pm.test(\"First user ID is a number\", function () {\r\n        pm.expect(jsonData.data[0].user_id).to.be.a(\"number\");\r\n    });\r\n\r\n    pm.test(\"First user full name exists\", function () {\r\n        pm.expect(jsonData.data[0].full_name).to.exist;\r\n    });\r\n\r\n    pm.test(\"First user email exists\", function () {\r\n        pm.expect(jsonData.data[0].email).to.exist;\r\n    });\r\n\r\n    pm.test(\"First user role exists\", function () {\r\n        pm.expect(jsonData.data[0].role).to.exist;\r\n    });\r\n\r\n    pm.test(\"Password is not exposed\", function () {\r\n        jsonData.data.forEach(function (user) {\r\n            pm.expect(user).to.not.have.property(\"password\");\r\n        });\r\n    });\r\n\r\n} else if (pm.response.code === 401) {\r\n\r\n    pm.test(\"Status code is 401\", function () {\r\n        pm.expect(pm.response.code).to.eql(401);\r\n    });\r\n\r\n    pm.test(\"Authentication error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 403) {\r\n\r\n    pm.test(\"Status code is 403\", function () {\r\n        pm.expect(pm.response.code).to.eql(403);\r\n    });\r\n\r\n    pm.test(\"Access denied message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 500) {\r\n\r\n    pm.test(\"Server error should not occur\", function () {\r\n        pm.expect.fail(\"Server error occurred. Check backend console.\");\r\n    });\r\n\r\n} else {\r\n\r\n    pm.test(\"Unexpected status code\", function () {\r\n        pm.expect.fail(\r\n            \"Unexpected status code: \" + pm.response.code\r\n        );\r\n    });\r\n}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0ani}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/users",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "update_user_info",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\nif (pm.response.code === 200) {\r\n\r\n    // =========================\r\n    // SUCCESS\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 200\", function () {\r\n        pm.expect(pm.response.code).to.eql(200);\r\n    });\r\n\r\n    pm.test(\"Success is true\", function () {\r\n        pm.expect(jsonData.success).to.eql(true);\r\n    });\r\n\r\n    pm.test(\"Success message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"User updated successfully\");\r\n    });\r\n\r\n}\r\n\r\nelse if (pm.response.code === 400) {\r\n\r\n    // =========================\r\n    // VALIDATION FAILURE\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 400\", function () {\r\n        pm.expect(pm.response.code).to.eql(400);\r\n    });\r\n\r\n    pm.test(\"Success is false\", function () {\r\n        pm.expect(jsonData.success).to.eql(false);\r\n    });\r\n\r\n    pm.test(\"Error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n}\r\n\r\nelse if (pm.response.code === 401) {\r\n\r\n    // =========================\r\n    // AUTHENTICATION FAILURE\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 401\", function () {\r\n        pm.expect(pm.response.code).to.eql(401);\r\n    });\r\n\r\n    pm.test(\"Authentication error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n}\r\n\r\nelse if (pm.response.code === 403) {\r\n\r\n    // =========================\r\n    // AUTHORIZATION FAILURE\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 403\", function () {\r\n        pm.expect(pm.response.code).to.eql(403);\r\n    });\r\n\r\n    pm.test(\"Access denied message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n}\r\n\r\nelse if (pm.response.code === 404) {\r\n\r\n    // =========================\r\n    // USER NOT FOUND\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 404\", function () {\r\n        pm.expect(pm.response.code).to.eql(404);\r\n    });\r\n\r\n    pm.test(\"Success is false\", function () {\r\n        pm.expect(jsonData.success).to.eql(false);\r\n    });\r\n\r\n    pm.test(\"User not found message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"User not found\");\r\n    });\r\n\r\n}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_14o7}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"full_name\": \"ayra User Updated\",\r\n    \"email\": \"ayra@gmail.com\",\r\n    \"phone\": \"01711111111\",\r\n    \"country\": \"pakistan\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/users/6",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users",
+            "6"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete_user_by_admin",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\nif (pm.response.code === 200) {\r\n\r\n    // =========================\r\n    // SUCCESS\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 200\", function () {\r\n        pm.expect(pm.response.code).to.eql(200);\r\n    });\r\n\r\n    pm.test(\"Success is true\", function () {\r\n        pm.expect(jsonData.success).to.eql(true);\r\n    });\r\n\r\n    pm.test(\"Success message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"User deleted successfully\");\r\n    });\r\n\r\n}\r\n\r\nelse if (pm.response.code === 401) {\r\n\r\n    // =========================\r\n    // AUTHENTICATION FAILURE\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 401\", function () {\r\n        pm.expect(pm.response.code).to.eql(401);\r\n    });\r\n\r\n    pm.test(\"Authentication error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n}\r\n\r\nelse if (pm.response.code === 403) {\r\n\r\n    // =========================\r\n    // AUTHORIZATION FAILURE\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 403\", function () {\r\n        pm.expect(pm.response.code).to.eql(403);\r\n    });\r\n\r\n    pm.test(\"Access denied message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n}\r\n\r\nelse if (pm.response.code === 404) {\r\n\r\n    // =========================\r\n    // USER NOT FOUND\r\n    // =========================\r\n\r\n    pm.test(\"Status code is 404\", function () {\r\n        pm.expect(pm.response.code).to.eql(404);\r\n    });\r\n\r\n    pm.test(\"Success is false\", function () {\r\n        pm.expect(jsonData.success).to.eql(false);\r\n    });\r\n\r\n    pm.test(\"User not found message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"User not found\");\r\n    });\r\n\r\n}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0ani}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/users/13",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users",
+            "13"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "user_by_id",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Response is JSON\", function () {\r\n    pm.response.to.be.json;\r\n});\r\n\r\nconst jsonData = pm.response.json();\r\n\r\nif (pm.response.code === 200) {\r\n\r\n    pm.test(\"Status code is 200\", function () {\r\n        pm.expect(pm.response.code).to.eql(200);\r\n    });\r\n\r\n    pm.test(\"Success is true\", function () {\r\n        pm.expect(jsonData.success).to.eql(true);\r\n    });\r\n\r\n    pm.test(\"User object exists\", function () {\r\n        pm.expect(jsonData.data).to.exist;\r\n    });\r\n\r\n    pm.test(\"User ID exists\", function () {\r\n        pm.expect(jsonData.data.user_id).to.exist;\r\n    });\r\n\r\n    pm.test(\"User ID is a number\", function () {\r\n        pm.expect(jsonData.data.user_id).to.be.a(\"number\");\r\n    });\r\n\r\n    pm.test(\"Full name exists\", function () {\r\n        pm.expect(jsonData.data.full_name).to.exist;\r\n    });\r\n\r\n    pm.test(\"Email exists\", function () {\r\n        pm.expect(jsonData.data.email).to.exist;\r\n    });\r\n\r\n    pm.test(\"Phone exists\", function () {\r\n        pm.expect(jsonData.data.phone).to.exist;\r\n    });\r\n\r\n    pm.test(\"Country exists\", function () {\r\n        pm.expect(jsonData.data.country).to.exist;\r\n    });\r\n\r\n    pm.test(\"Role exists\", function () {\r\n        pm.expect(jsonData.data.role).to.exist;\r\n    });\r\n\r\n\r\n} else if (pm.response.code === 401) {\r\n\r\n    pm.test(\"Status code is 401\", function () {\r\n        pm.expect(pm.response.code).to.eql(401);\r\n    });\r\n\r\n    pm.test(\"Authentication error message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 403) {\r\n\r\n    pm.test(\"Status code is 403\", function () {\r\n        pm.expect(pm.response.code).to.eql(403);\r\n    });\r\n\r\n    pm.test(\"Access denied message exists\", function () {\r\n        pm.expect(jsonData.message).to.exist;\r\n    });\r\n\r\n} else if (pm.response.code === 404) {\r\n\r\n    pm.test(\"Status code is 404\", function () {\r\n        pm.expect(pm.response.code).to.eql(404);\r\n    });\r\n\r\n    pm.test(\"User not found message is correct\", function () {\r\n        pm.expect(jsonData.message).to.eql(\"User not found\");\r\n    });\r\n\r\n} else if (pm.response.code === 500) {\r\n\r\n    pm.test(\"Server error should not occur\", function () {\r\n        pm.expect.fail(\"Server error occurred. Check backend console.\");\r\n    });\r\n\r\n} else {\r\n\r\n    pm.test(\"Unexpected status code\", function () {\r\n        pm.expect.fail(\r\n            \"Unexpected status code: \" + pm.response.code\r\n        );\r\n    });\r\n}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0ani}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/users/9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "users",
+            "9"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "supabase_service_role_api_key_0ani",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_14o7",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0ani",
+      "secret": true
+    }
+  ]
+}

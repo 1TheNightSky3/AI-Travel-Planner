@@ -1,0 +1,428 @@
+{
+  "info": {
+    "_postman_id": "43709b64-4735-4fde-af59-34ce40f4bd8e",
+    "name": "Expense_Management",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57202771",
+    "_collection_link": "https://go.postman.co/collection/57202771-43709b64-4735-4fde-af59-34ce40f4bd8e?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Create Trip",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response contains tripId\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData).to.have.property(\"tripId\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Trip created message is correct\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.message).to.include(\"Trip\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"user_id\":95,\r\n  \"destination\": \"Sajek\",\r\n  \"start_date\": \"2027-02-05\",\r\n  \"end_date\": \"2027-02-09\",\r\n  \"budget\": 32000,\r\n  \"description\": \"Sea beach and sunrise tour\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/trips",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "trips"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Expense",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 201\", function () {\r",
+              "    pm.response.to.have.status(201);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Expense added successfully\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "\r",
+              "    pm.expect(jsonData.success).to.be.true;\r",
+              "    pm.expect(jsonData).to.have.property(\"message\");\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"trip_id\": 4,\r\n  \"expense_category\": \"Activity\",\r\n  \"description\": \"LUDOOS\",\r\n  \"amount\": 950,\r\n  \"expense_date\": \"2026-10-12\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/expenses",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "expenses"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get all expenses",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Success flag is true\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.success).to.be.true;\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Data is an array\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.data).to.be.an(\"array\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Expense object has required fields\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    if (jsonData.data.length > 0) {\r",
+              "        pm.expect(jsonData.data[0]).to.have.property(\"expense_id\");\r",
+              "        pm.expect(jsonData.data[0]).to.have.property(\"trip_id\");\r",
+              "        pm.expect(jsonData.data[0]).to.have.property(\"expense_category\");\r",
+              "        pm.expect(jsonData.data[0]).to.have.property(\"amount\");\r",
+              "    }\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/expenses",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "expenses"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get expense by ID",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Expense details returned\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "\r",
+              "    pm.expect(jsonData.success).to.be.true;\r",
+              "    pm.expect(jsonData.data).to.have.property(\"expense_id\");\r",
+              "    pm.expect(jsonData.data).to.have.property(\"trip_id\");\r",
+              "    pm.expect(jsonData.data).to.have.property(\"expense_category\");\r",
+              "    pm.expect(jsonData.data).to.have.property(\"description\");\r",
+              "    pm.expect(jsonData.data).to.have.property(\"amount\");\r",
+              "    pm.expect(jsonData.data).to.have.property(\"expense_date\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Expense ID matches request URL\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "\r",
+              "    // Get the ID from the request URL\r",
+              "    const requestedId = parseInt(pm.request.url.path[2]);\r",
+              "\r",
+              "    // Compare it with the response expense_id\r",
+              "    pm.expect(jsonData.data.expense_id).to.eql(requestedId);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/expenses/9",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "expenses",
+            "9"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Expense",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Expense updated successfully\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.success).to.be.true;\r",
+              "    pm.expect(jsonData.message).to.eql(\"Expense updated successfully\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"expense_category\": \"Accommodation\",\r\n  \"description\": \"Resort booking (updated)\",\r\n  \"amount\": 13500,\r\n  \"expense_date\": \"2026-10-11\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/expenses/26",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "expenses",
+            "26"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete expense",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/expenses/11",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "expenses",
+            "11"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Expense summary by trip",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {\r",
+              "    pm.response.to.have.status(200);\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Summary response is valid\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.success).to.be.true;\r",
+              "    pm.expect(jsonData).to.have.property(\"tripId\");\r",
+              "    pm.expect(jsonData).to.have.property(\"totalExpenses\");\r",
+              "    pm.expect(jsonData).to.have.property(\"categorySummary\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Category summary is an array\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(jsonData.categorySummary).to.be.an(\"array\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Total expenses is a number string\", function () {\r",
+              "    const jsonData = pm.response.json();\r",
+              "    pm.expect(parseFloat(jsonData.totalExpenses)).to.be.a(\"number\");\r",
+              "});\r",
+              "\r",
+              "pm.test(\"Response time is less than 1000ms\", function () {\r",
+              "    pm.expect(pm.response.responseTime).to.be.below(1000);\r",
+              "});"
+            ],
+            "type": "text/javascript",
+            "packages": {},
+            "requests": {}
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:5000/api/expenses/summary/4",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "expenses",
+            "summary",
+            "4"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Trips",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"user_id\":95,\r\n  \"destination\": \"Sajek\",\r\n  \"start_date\": \"2027-02-05\",\r\n  \"end_date\": \"2027-02-09\",\r\n  \"budget\": 32000,\r\n  \"description\": \"Sea beach and sunrise tour\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/trips",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "trips"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Trips",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"user_id\":95,\r\n  \"destination\": \"Sajek\",\r\n  \"start_date\": \"2027-02-05\",\r\n  \"end_date\": \"2027-02-09\",\r\n  \"budget\": 32000,\r\n  \"description\": \"Sea beach and sunrise tour\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:5000/api/trips/7",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "trips",
+            "7"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
