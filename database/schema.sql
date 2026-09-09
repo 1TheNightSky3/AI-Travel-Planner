@@ -2,6 +2,15 @@ CREATE DATABASE IF NOT EXISTS travel_planner;
 
 USE travel_planner;
 
+Create table if not exists users (
+    id int auto_increment primary key ,
+    name varchar(100) not null ,
+    email varchar(150) not null unique ,
+    password varchar(155) not null,
+    role enum('user','admin') default 'user',
+    created_at timestamp default current_timestamp
+);
+
 CREATE TABLE IF NOT EXISTS trips (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
