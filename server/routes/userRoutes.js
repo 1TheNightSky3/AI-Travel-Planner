@@ -2,27 +2,49 @@ const express = require("express");
 
 const router = express.Router();
 
-const userController = require("../controllers/userController");
+const {
+    getMyProfile,
+    updateMyProfile,
+    getAllUsers,
+    deleteUser
+} = require("../controllers/userController");
+
+const authenticateToken = require("../middleware/authMiddleware");
+const authorizeRole = require("../middleware/roleMiddleware");
 
 
-// CREATE
-router.post("/", userController.createUser);
+// User can view own profile
+router.get(
+    "/me",
+    authenticateToken,
+    getMyProfile
+);
 
 
-// READ ALL
-router.get("/", userController.getAllUsers);
+// User can update own profile
+router.put(
+    "/me",
+    authenticateToken,
+    updateMyProfile
+);
 
 
-// READ BY ID
-router.get("/:id", userController.getUserById);
+// Admin can view all users
+router.get(
+    "/",
+    authenticateToken,
+    authorizeRole("admin"),
+    getAllUsers
+);
 
 
-// UPDATE
-router.put("/:id", userController.updateUser);
-
-
-// DELETE
-router.delete("/:id", userController.deleteUser);
+// Admin can delete user
+router.delete(
+    "/:id",
+    authenticateToken,
+    authorizeRole("admin"),
+    deleteUser
+);
 
 
 module.exports = router;

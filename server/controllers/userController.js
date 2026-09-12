@@ -1,152 +1,135 @@
+const bcrypt = require("bcryptjs");
 const User = require("../models/userModel");
 
-// CREATE USER
-const createUser = async (req, res) => {
+// Get logged-in user's own profile
+const getMyProfile = async (req, res) => {
     try {
-        const userData = req.body;
+        const users = await User.findById(req.user.id);
 
-        if (!userData.full_name || !userData.email || !userData.password) {
-            return res.status(400).json({
-                success: false,
-                message: "full_name, email and password are required"
+        if (users.length === 0) {
+            return res.status(404).json({
+                message: "User not found"
             });
         }
 
-        const userId = await User.createUser(userData);
+        const user = users[0];
 
-        res.status(201).json({
-            success: true,
-            message: "User created successfully",
-            user_id: userId
+        res.status(200).json({
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            role: user.role
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("GET PROFILE ERROR:", error);
 
         res.status(500).json({
-            success: false,
-            message: "Failed to create user"
+            message: "Server error"
         });
     }
 };
 
 
-// GET ALL USERS
+// Update logged-in user's own profile
+const updateMyProfile = async (req, res) => {
+    try {
+        const { name, email, password } = req.body;
+
+        if (!name && !email && !password) {
+            return res.status(400).json({
+                message: "Provide at least one field to update"
+            });
+        }
+
+        let hashedPassword = null;
+
+        if (password) {
+            hashedPassword = await bcrypt.hash(password, 10);
+        }
+
+        const result = await User.updateById(
+            req.user.id,
+            name,
+            email,
+            hashedPassword
+        );
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        res.status(200).json({
+            message: "Profile updated successfully"
+        });
+
+    } catch (error) {
+        console.error("UPDATE PROFILE ERROR:", error);
+
+        res.status(500).json({
+            message: "Server error",
+            error: error.message
+        });
+    }
+};
+
+
+// Admin can see all users
 const getAllUsers = async (req, res) => {
     try {
-        const users = await User.getAllUsers();
+        const users = await User.getAll();
 
-        res.status(200).json({
-            success: true,
-            data: users
-        });
+        res.status(200).json(users);
 
     } catch (error) {
-        console.error(error);
+        console.error("GET USERS ERROR:", error);
 
         res.status(500).json({
-            success: false,
-            message: "Failed to retrieve users"
+            message: "Server error"
         });
     }
 };
 
 
-// GET USER BY ID
-const getUserById = async (req, res) => {
-    try {
-        const userId = req.params.id;
-
-        const user = await User.getUserById(userId);
-
-        if (!user) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            data: user
-        });
-
-    } catch (error) {
-        console.error(error);
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to retrieve user"
-        });
-    }
-};
-
-
-// UPDATE USER
-const updateUser = async (req, res) => {
-    try {
-        const userId = req.params.id;
-        const userData = req.body;
-
-        const result = await User.updateUser(userId, userData);
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({
-                success: false,
-                message: "User not found"
-            });
-        }
-
-        res.status(200).json({
-            success: true,
-            message: "User updated successfully"
-        });
-
-    } catch (error) {
-        console.error(error);
-
-        res.status(500).json({
-            success: false,
-            message: "Failed to update user"
-        });
-    }
-};
-
-
-// DELETE USER
+// Admin can delete a user
 const deleteUser = async (req, res) => {
     try {
-        const userId = req.params.id;
+        const { id } = req.params;
 
-        const result = await User.deleteUser(userId);
+        // Prevent admin from deleting their own account
+        if (Number(id) === req.user.id) {
+            return res.status(400).json({
+                message: "Admin cannot delete their own account"
+            });
+        }
+
+        const result = await User.deleteById(id);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                success: false,
                 message: "User not found"
             });
         }
 
         res.status(200).json({
-            success: true,
             message: "User deleted successfully"
         });
 
     } catch (error) {
-        console.error(error);
+        console.error("DELETE USER ERROR:", error);
 
         res.status(500).json({
-            success: false,
-            message: "Failed to delete user"
+            message: "Server error"
         });
     }
 };
 
 
 module.exports = {
-    createUser,
+    getMyProfile,
+    updateMyProfile,
     getAllUsers,
-    getUserById,
-    updateUser,
     deleteUser
 };
