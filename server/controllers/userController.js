@@ -1,10 +1,12 @@
 const User = require("../models/userModel");
+const bcrypt = require("bcrypt");
 
-// CREATE USER
+// CREATE USER / REGISTER
 const createUser = async (req, res) => {
     try {
         const userData = req.body;
 
+        // Validate required fields
         if (!userData.full_name || !userData.email || !userData.password) {
             return res.status(400).json({
                 success: false,
@@ -12,11 +14,28 @@ const createUser = async (req, res) => {
             });
         }
 
+        // Check if email already exists
+        const existingUser = await User.getUserByEmail(userData.email);
+
+        if (existingUser) {
+            return res.status(409).json({
+                success: false,
+                message: "Email already exists"
+            });
+        }
+
+        // Hash password
+        const hashedPassword = await bcrypt.hash(userData.password, 10);
+
+        // Replace plain password with hashed password
+        userData.password = hashedPassword;
+
+        // Create user
         const userId = await User.createUser(userData);
 
         res.status(201).json({
             success: true,
-            message: "User created successfully",
+            message: "User registered successfully",
             user_id: userId
         });
 
@@ -25,7 +44,7 @@ const createUser = async (req, res) => {
 
         res.status(500).json({
             success: false,
-            message: "Failed to create user"
+            message: "Failed to register user"
         });
     }
 };

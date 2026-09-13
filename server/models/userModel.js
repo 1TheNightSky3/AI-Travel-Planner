@@ -19,21 +19,48 @@ const createUser = async (userData) => {
 
 const getAllUsers = async () => {
     const [rows] = await db.query(
-        "SELECT * FROM users"
+        `SELECT
+            user_id,
+            full_name,
+            email,
+            phone,
+            country,
+            profile_picture,
+            role,
+            created_at,
+            updated_at
+         FROM users`
     );
 
     return rows;
 };
-
 const getUserById = async (userId) => {
     const [rows] = await db.query(
-        "SELECT * FROM users WHERE user_id = ?",
+        `SELECT
+            user_id,
+            full_name,
+            email,
+            phone,
+            country,
+            profile_picture,
+            role,
+            created_at,
+            updated_at
+         FROM users
+         WHERE user_id = ?`,
         [userId]
     );
 
     return rows[0];
 };
+const getUserByEmail = async (email) => {
+    const [rows] = await db.query(
+        "SELECT * FROM users WHERE email = ?",
+        [email]
+    );
 
+    return rows[0];
+};
 const updateUser = async (userId, userData) => {
     const [result] = await db.query(
         `UPDATE users
@@ -67,6 +94,7 @@ module.exports = {
     createUser,
     getAllUsers,
     getUserById,
+     getUserByEmail,
     updateUser,
     deleteUser
 };
