@@ -1,5 +1,8 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+
+const corsOptions = require("./middleware/corsOptions");
 
 const tripRoutes = require("./routes/tripRoutes");
 const accommodationRoutes = require("./routes/accommodationRoutes");
@@ -10,7 +13,8 @@ const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
-app.use(cors());
+app.use(helmet());
+app.use(cors(corsOptions));
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -19,22 +23,11 @@ app.get("/", (req, res) => {
     });
 });
 
-// Authentication routes
 app.use("/api/auth", authRoutes);
-
-// Trip routes
 app.use("/api/trips", tripRoutes);
-
-// Accommodation routes
 app.use("/api/accommodations", accommodationRoutes);
-
-// User routes
 app.use("/api/users", userRoutes);
-
-// Travel preference routes
 app.use("/api/preferences", travelPreferenceRoutes);
-
-// Expense routes
 app.use("/api/expenses", expenseRoutes);
 
 module.exports = app;

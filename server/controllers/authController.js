@@ -3,8 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const {
     createUser,
-    getUserByEmail,
-    getUserById
+    getUserByEmail
 } = require("../models/userModel");
 
 
@@ -12,8 +11,10 @@ const {
 // USER REGISTRATION
 // POST /api/auth/register
 // ===============================
+
 const register = async (req, res) => {
     try {
+
         const {
             full_name,
             email,
@@ -22,21 +23,24 @@ const register = async (req, res) => {
             country
         } = req.body;
 
-        // 1. Validate required input
+
+        // Validate required input
         if (!full_name || !email || !password) {
             return res.status(400).json({
                 message: "Full name, email and password are required"
             });
         }
 
-        // 2. Validate password length
+
+        // Validate password length
         if (password.length < 6) {
             return res.status(400).json({
                 message: "Password must be at least 6 characters long"
             });
         }
 
-        // 3. Check whether email already exists
+
+        // Check whether email already exists
         const existingUser = await getUserByEmail(email);
 
         if (existingUser) {
@@ -45,12 +49,13 @@ const register = async (req, res) => {
             });
         }
 
-        // 4. Hash password
+
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // 5. Create user
-        // IMPORTANT:
-        // Every normal registration creates a USER.
+
+        // Create user
+        // Normal registration always creates a user.
         // Client cannot choose admin role.
         const userId = await createUser({
             full_name,
@@ -61,9 +66,11 @@ const register = async (req, res) => {
             role: "user"
         });
 
-        // 6. Return success response
+
+        // Return success response
         return res.status(201).json({
             message: "User registered successfully",
+
             user: {
                 user_id: userId,
                 full_name,
@@ -73,6 +80,7 @@ const register = async (req, res) => {
         });
 
     } catch (error) {
+
         console.error("Registration error:", error);
 
         return res.status(500).json({
@@ -86,21 +94,25 @@ const register = async (req, res) => {
 // USER LOGIN
 // POST /api/auth/login
 // ===============================
+
 const login = async (req, res) => {
     try {
+
         const {
             email,
             password
         } = req.body;
 
-        // 1. Validate input
+
+        // Validate input
         if (!email || !password) {
             return res.status(400).json({
                 message: "Email and password are required"
             });
         }
 
-        // 2. Find user by email
+
+        // Find user by email
         const user = await getUserByEmail(email);
 
         if (!user) {
@@ -109,7 +121,8 @@ const login = async (req, res) => {
             });
         }
 
-        // 3. Compare entered password with hashed password
+
+        // Compare password with hashed password
         const passwordMatch = await bcrypt.compare(
             password,
             user.password
@@ -121,7 +134,8 @@ const login = async (req, res) => {
             });
         }
 
-        // 4. Generate JWT token
+
+        // Generate JWT token
         const token = jwt.sign(
             {
                 user_id: user.user_id,
@@ -134,10 +148,13 @@ const login = async (req, res) => {
             }
         );
 
-        // 5. Return token
+
+        // Return token
         return res.status(200).json({
             message: "Login successful",
+
             token: token,
+
             user: {
                 user_id: user.user_id,
                 full_name: user.full_name,
@@ -147,6 +164,7 @@ const login = async (req, res) => {
         });
 
     } catch (error) {
+
         console.error("Login error:", error);
 
         return res.status(500).json({

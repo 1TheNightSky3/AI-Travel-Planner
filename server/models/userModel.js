@@ -2,6 +2,7 @@ const db = require("../config/database");
 
 // Create a new user
 const createUser = async (userData) => {
+
     const [result] = await db.query(
         `INSERT INTO users
         (full_name, email, password, phone, country, role)
@@ -22,6 +23,7 @@ const createUser = async (userData) => {
 
 // Get all users
 const getAllUsers = async () => {
+
     const [rows] = await db.query(
         `SELECT user_id, full_name, email, phone, country, role, created_at, updated_at
          FROM users`
@@ -33,6 +35,7 @@ const getAllUsers = async () => {
 
 // Get user by ID
 const getUserById = async (userId) => {
+
     const [rows] = await db.query(
         "SELECT * FROM users WHERE user_id = ?",
         [userId]
@@ -44,6 +47,7 @@ const getUserById = async (userId) => {
 
 // Get user by email
 const getUserByEmail = async (email) => {
+
     const [rows] = await db.query(
         "SELECT * FROM users WHERE email = ?",
         [email]
@@ -55,6 +59,7 @@ const getUserByEmail = async (email) => {
 
 // Update user
 const updateUser = async (userId, userData) => {
+
     const [result] = await db.query(
         `UPDATE users
         SET full_name = ?,
@@ -77,6 +82,7 @@ const updateUser = async (userId, userData) => {
 
 // Delete user
 const deleteUser = async (userId) => {
+
     const [result] = await db.query(
         "DELETE FROM users WHERE user_id = ?",
         [userId]

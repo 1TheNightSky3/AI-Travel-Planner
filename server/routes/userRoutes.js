@@ -11,7 +11,7 @@ const authorizeRole = require("../middleware/roleMiddleware");
 const authorizeSelfOrAdmin = require("../middleware/selforAdminMiddleware");
 
 
-// CREATE
+// ==================== CREATE USER ====================
 
 router.post(
     "/",
@@ -21,7 +21,7 @@ router.post(
 );
 
 
-// READ ALL
+// ==================== READ ALL USERS ====================
 
 router.get(
     "/",
@@ -31,7 +31,7 @@ router.get(
 );
 
 
-// READ BY ID
+// ==================== READ USER BY ID ====================
 
 router.get(
     "/:id",
@@ -41,7 +41,7 @@ router.get(
 );
 
 
-// UPDATE
+// ==================== UPDATE USER ====================
 
 router.put(
     "/:id",
@@ -51,7 +51,7 @@ router.put(
 );
 
 
-// DELETE
+// ==================== DELETE USER ====================
 
 router.delete(
     "/:id",
@@ -60,9 +60,5 @@ router.delete(
     userController.deleteUser
 );
 
-router.post(
-    "/",
-    authenticateToken,
-    postController.createPost
-);
+
 module.exports = router;
